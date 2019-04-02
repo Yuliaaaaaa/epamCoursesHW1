@@ -2,12 +2,39 @@ package epamCourses.hw1.Task4;
 
 import java.util.Scanner;
 
-import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static java.lang.Math.pow;
 
 public class Task4 {
+//    public static int task4(int num1, int num2){
+//        int res = 0;
+//        int powOf2 = 0;
+//        do{
+//            while(num1%2==0 && num2%2==0){
+//                num1>>=1;
+//                num2>>=1;
+//                powOf2++;
+//            }
+//            if(num1>num2){
+//                res = num1%num2;
+//                num1 = res;
+//            }
+//            else{
+//                res = num2%num1;
+//                num2 = res;
+//            }
+//        }
+//        while(res!=0);
+//        return (max(num1, num2)*(1<<powOf2));
+//    }
+
     public static int task4(int num1, int num2){
-        int res = 0;
+        if(num1 == num2)
+            return num1;
+        if(num2 == 0)
+            return num1;
+        if(num1 == 0)
+            return num2;
         int powOf2 = 0;
         do{
             while(num1%2==0 && num2%2==0){
@@ -15,17 +42,25 @@ public class Task4 {
                 num2>>=1;
                 powOf2++;
             }
-            if(num1>num2){
-                res = num1%num2;
-                num1 = res;
+            while(num1%2 == 0 && num2%2 != 0){
+                num1>>=1;
             }
-            else{
-                res = num2%num1;
-                num2 = res;
+            while(num1%2 != 0 && num2%2 == 0){
+                num2>>=1;
+            }
+
+
+            if(num1<num2){
+                num2-=num1;
+                num2>>=1;
+            }
+            else if(num1>num2){
+                num1-=num2;
+                num1>>=1;
             }
         }
-        while(res!=0);
-        return (max(num1, num2)*(1<<powOf2));
+        while(num1!=1 && num2!=1 && num1 != num2);
+        return (min(num1, num2)*(1<<powOf2));
     }
 
     public static void main(String[] args) {
